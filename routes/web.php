@@ -18,4 +18,15 @@ Route::group([ "as"=>'user.' , "prefix"=>'user' , "namespace"=>'User' , "middlew
 
 Route::group([ "as"=>'admin.' , "prefix"=>'admin' , "namespace"=>'Admin' , "middleware"=>['auth','admin']],function(){
     Route::get('/dashboard', [App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::group(["as"=> 'student.', "prefix"=>"student"],function(){
+        Route::get('/list', [App\Http\Controllers\Admin\StudentController::class, 'index']);
+        Route::get('/create', [App\Http\Controllers\Admin\StudentController::class, 'create']);
+        Route::post('/store', [App\Http\Controllers\Admin\StudentController::class, 'store']);
+        Route::post('/search', [App\Http\Controllers\Admin\StudentController::class, 'search']);
+        Route::get('/detail/{id}', [App\Http\Controllers\Admin\StudentController::class, 'view']);
+        Route::get('/edit/{id}', [App\Http\Controllers\Admin\StudentController::class, 'edit']);
+        Route::post('/update/{id}', [App\Http\Controllers\Admin\StudentController::class, 'update']);
+        Route::get('/delete/{id}', [App\Http\Controllers\Admin\StudentController::class, 'destroy']);
+    });
 });
