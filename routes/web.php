@@ -13,6 +13,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group([ "as"=>'user.' , "prefix"=>'user' , "namespace"=>'User' , "middleware"=>['auth','user']],function(){
     Route::get('/dashboard', [App\Http\Controllers\User\UserDashboardController::class, 'index'])->name('dashboard');
+    Route::get('student/edit/{id}', [App\Http\Controllers\User\StudentController::class, 'edit']);
+    Route::post('student/update/{id}', [App\Http\Controllers\User\StudentController::class, 'update']);
+    Route::post('student/delete/{id}', [App\Http\Controllers\User\UserDashboardController::class, 'logout']);
+
 });
 
 
