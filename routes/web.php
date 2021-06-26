@@ -18,7 +18,7 @@ Route::group([ "as"=>'user.' , "prefix"=>'user' , "namespace"=>'User' , "middlew
 
 Route::group([ "as"=>'admin.' , "prefix"=>'admin' , "namespace"=>'Admin' , "middleware"=>['auth','admin']],function(){
     Route::get('/dashboard', [App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('dashboard');
-
+    Route::get('/logout', [App\Http\Controllers\Admin\AdminDashboardController::class, 'logout']);
     Route::group(["as"=> 'student.', "prefix"=>"student"],function(){
         Route::get('/list', [App\Http\Controllers\Admin\StudentController::class, 'index']);
         Route::get('/create', [App\Http\Controllers\Admin\StudentController::class, 'create']);
@@ -28,5 +28,14 @@ Route::group([ "as"=>'admin.' , "prefix"=>'admin' , "namespace"=>'Admin' , "midd
         Route::get('/edit/{id}', [App\Http\Controllers\Admin\StudentController::class, 'edit']);
         Route::post('/update/{id}', [App\Http\Controllers\Admin\StudentController::class, 'update']);
         Route::get('/delete/{id}', [App\Http\Controllers\Admin\StudentController::class, 'destroy']);
+    });
+
+    Route::group(["as"=> 'teacher.', "prefix"=>"teacher"],function(){
+        Route::get('/list', [App\Http\Controllers\Admin\TeacherController::class, 'index']);
+        Route::get('/create', [App\Http\Controllers\Admin\TeacherController::class, 'create']);
+        Route::post('/store', [App\Http\Controllers\Admin\TeacherController::class, 'store']);
+        Route::get('/edit/{id}', [App\Http\Controllers\Admin\TeacherController::class, 'edit']);
+        Route::post('/update/{id}', [App\Http\Controllers\Admin\TeacherController::class, 'store']);
+        Route::get('/delete/{id}', [App\Http\Controllers\Admin\TeacherController::class, 'destroy']);
     });
 });
